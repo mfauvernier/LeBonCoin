@@ -1,5 +1,7 @@
 /* eslint-disable */
 
+import Title from "./Title";
+
 const Modal = ({ fav, total, setShowModal }) => {
   return (
     <div
@@ -20,6 +22,7 @@ const Modal = ({ fav, total, setShowModal }) => {
         >
           X
         </button>
+        <Title level={2}>Mes Favoris</Title>
         {fav.map((product) => {
           return (
             <article

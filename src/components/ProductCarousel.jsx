@@ -7,8 +7,8 @@ const ProductCarousel = ({ data, addFav, removeFav, theme }) => {
   const carouselRef = useRef("");
 
   const scroll = () => {
-    if (productCarousel.current) {
-      productCarousel.current.scrollTo({
+    if (carouselRef.current) {
+      carouselRef.current.scrollTo({
         left: 0,
         behavior: "smooth",
       });

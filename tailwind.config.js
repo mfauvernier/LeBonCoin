@@ -3,11 +3,11 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
+    screens: {
+      lg: "970px",
+      xl: "1050px",
+    },
     extend: {
-      screens: {
-        lg: "970px",
-        xl: "1050px",
-      },
       colors: {
         star: "#B84A28",
         "light-blue": "#E6F2FD",

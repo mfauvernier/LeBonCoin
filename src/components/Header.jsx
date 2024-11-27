@@ -25,11 +25,19 @@ const Header = ({ countFav, changeTheme, theme, setShowModal }) => {
       }
     >
       <Container className="flex flex-col lg:flex lg:justify-between">
-        <div className="lg:mt-4 lg:flex lg:justify-between">
+        <div className="lg:mt-4 lg:flex lg:items-center lg:justify-between">
           <div className="relative mb-4 mt-4 flex items-center justify-center lg:mt-0 xl:gap-4">
             <LuMenu className="absolute left-0 text-4xl text-sky-900 lg:hidden" />
             <img src={logo} alt="Logo LeBonCoin" />
             <AddArticle className="hidden lg:flex" />
+          </div>
+          <div className="hidden items-center justify-center rounded-xl bg-gray-100 lg:mb-4 lg:flex lg:pr-2">
+            <input
+              type="text"
+              placeholder="Rechercher sur leboncoin"
+              className="h-10 rounded-lg bg-gray-100 px-3 text-sm"
+            />
+            <CiSearch className="text-lg" />
           </div>
           <div className="hidden lg:flex lg:gap-2">
             <div className="flex flex-col items-center">

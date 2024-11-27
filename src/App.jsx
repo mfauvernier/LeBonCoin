@@ -1,14 +1,28 @@
-import { useState, useCallback, useMemo, useReducer } from "react";
+import { useState, useCallback, useReducer } from "react";
 import Header from "./components/Header";
 import Main from "./components/Main";
-import calculateTotal from "./utils/calculateTotal";
 import Modal from "./components/Modal";
 import cn from "./utils/cn";
 import Footer from "./components/Footer";
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case "":
+    case "add_favorite":
+      return {
+        ...state,
+        fav: [...state.fav, action.payload],
+        total: state.total + action.payload.price,
+      };
+    case "remove_favorite": {
+      const updatedFav = state.fav.filter(
+        (item) => item.title !== action.payload.title,
+      );
+      return {
+        ...state,
+        fav: updatedFav,
+        total: state.total - action.payload.price,
+      };
+    }
     default:
       return state;
   }
@@ -19,19 +33,16 @@ const initialState = { fav: [], total: 0 };
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const [fav, setFav] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [theme, setTheme] = useState("white");
 
   const addToFav = useCallback((product) => {
-    setFav((prev) => [...prev, product]);
+    dispatch({ type: "add_favorite", payload: product });
   }, []);
 
   const removeFromFav = useCallback((product) => {
-    setFav((prev) => prev.filter((item) => item.title !== product.title));
+    dispatch({ type: "remove_favorite", payload: product });
   }, []);
-
-  const total = useMemo(() => calculateTotal(fav), [fav]);
 
   const changeTheme = () => {
     setTheme((prev) => (prev === "white" ? "black" : "white"));
@@ -44,8 +55,8 @@ function App() {
       )}
     >
       <Header
-        countFav={fav.length}
-        total={total}
+        countFav={state.fav.length}
+        total={state.total}
         changeTheme={changeTheme}
         theme={theme}
         setShowModal={setShowModal}
@@ -53,11 +64,15 @@ function App() {
       <Main
         addFav={addToFav}
         removeFav={removeFromFav}
-        fav={fav}
+        fav={state.fav}
         theme={theme}
       />
       {showModal && (
-        <Modal fav={fav} total={total} setShowModal={setShowModal} />
+        <Modal
+          fav={state.fav}
+          total={state.total}
+          setShowModal={setShowModal}
+        />
       )}
       <Footer />
     </div>

@@ -8,13 +8,17 @@ import AddArticle from "./AddArticle";
 import data from "../data.json";
 
 import { memo } from "react";
+import { useFavContext } from "../contexts/FavContext";
+import { useThemeContext } from "../contexts/ThemeContext";
 
-const Main = ({ addFav, removeFav, fav, theme }) => {
+const Main = () => {
+  const { favDispatch } = useFavContext();
+  const { theme } = useThemeContext();
   return (
     <main className="pt-44">
       <Container>
-        <div className="mt-3 flex flex-col items-center justify-center rounded-xl bg-back-button py-3 md:flex-row md:gap-4">
-          <button className={"mb-3 text-xl font-bold text-black md:mb-0"}>
+        <div className="md:flex-row md:gap-4 mt-3 flex flex-col items-center justify-center rounded-xl bg-back-button py-3">
+          <button className={"md:mb-0 mb-3 text-xl font-bold text-black"}>
             C&apos;est le moment de vendre
           </button>
           <AddArticle />
@@ -25,15 +29,13 @@ const Main = ({ addFav, removeFav, fav, theme }) => {
         <Title level={3}>Tablettes & liseuses</Title>
         <ProductCarousel
           data={data.products.tablets}
-          addFav={addFav}
-          removeFav={removeFav}
+          favDispatch={favDispatch}
         />
         <Title level={3}>Consoles</Title>
         <ProductCarousel
           data={data.products.consols}
-          addFav={addFav}
-          removeFav={removeFav}
           theme={theme}
+          favDispatch={favDispatch}
         />
       </Container>
     </main>

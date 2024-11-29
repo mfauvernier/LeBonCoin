@@ -1,11 +1,13 @@
 /* eslint-disable */
 
 import Title from "./Title";
+import { useFavContext } from "../contexts/FavContext";
 
-const Modal = ({ fav, total, setShowModal }) => {
+const Modal = ({ setShowModal }) => {
+  const { fav, total } = useFavContext;
   return (
     <div
-      className="bg-modal-back fixed bottom-0 left-0 right-0 top-0 z-50 flex items-center justify-center"
+      className="fixed bottom-0 left-0 right-0 top-0 z-50 flex items-center justify-center bg-modal-back"
       onClick={() => {
         setShowModal(false);
       }}

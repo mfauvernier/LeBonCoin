@@ -3,17 +3,19 @@ import { useState } from "react";
 import { FaStar } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
+import { useFavContext } from "../contexts/FavContext";
 
-const Product = ({ product, addFav, removeFav, theme }) => {
+const Product = ({ product }) => {
+  const { favDispatch } = useFavContext();
   const [isFav, setIsFav] = useState(false);
 
   const handleFavClick = () => {
     if (isFav) {
       setIsFav(false);
-      removeFav(product);
+      favDispatch({ type: "remove_favorite", payload: product });
     } else {
       setIsFav(true);
-      addFav(product);
+      favDispatch({ type: "add_favorite", payload: product });
     }
   };
 
@@ -54,7 +56,7 @@ const Product = ({ product, addFav, removeFav, theme }) => {
           </span>
         )}
         <div className="flex items-end justify-between">
-          <div className="text-text mt-2 text-xs">
+          <div className="mt-2 text-xs text-text">
             <p>{product.place}</p>
             <p>{product.date}</p>
           </div>

@@ -14,8 +14,13 @@ import MenuIcon from "./MenuIcon";
 import Container from "./Container";
 
 import { memo } from "react";
+import { useFavContext } from "../contexts/FavContext";
+import { useThemeContext } from "../contexts/ThemeContext";
 
-const Header = ({ countFav, changeTheme, theme, setShowModal }) => {
+const Header = ({ setShowModal }) => {
+  const { theme, changeTheme } = useThemeContext();
+  const { fav } = useFavContext();
+  const numberOfFav = fav.length;
   return (
     <header
       className={
@@ -49,15 +54,15 @@ const Header = ({ countFav, changeTheme, theme, setShowModal }) => {
             <div
               className="relative flex flex-col items-center"
               onClick={() => {
-                if (countFav !== 0) {
+                if (numberOfFav !== 0) {
                   setShowModal(true);
                 }
               }}
             >
               <MenuIcon text="Favoris" Icon={FaRegHeart} />
-              {countFav ? (
+              {numberOfFav ? (
                 <span className="absolute -right-2 -top-2 flex size-6 items-center justify-center rounded-full bg-red-500 text-xs text-white">
-                  {countFav}
+                  {numberOfFav}
                 </span>
               ) : (
                 ""

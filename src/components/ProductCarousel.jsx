@@ -3,7 +3,7 @@ import { useRef } from "react";
 import BackButton from "./BackButton";
 import Product from "./Product";
 
-const ProductCarousel = ({ data, addFav, removeFav, theme }) => {
+const ProductCarousel = ({ data, theme, favDispatch }) => {
   const carouselRef = useRef("");
 
   const scroll = () => {
@@ -25,9 +25,8 @@ const ProductCarousel = ({ data, addFav, removeFav, theme }) => {
           <Product
             key={product.id}
             product={product}
-            addFav={addFav}
-            removeFav={removeFav}
             theme={theme}
+            favDispatch={favDispatch}
           />
         );
       })}
